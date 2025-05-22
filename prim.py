@@ -1,6 +1,7 @@
 import heapq
 
 def prim_algorithm(n, edges):
+    
     adj = [[] for _ in range(n+1)]
     for u, v, w in edges:
         adj[u].append((v, w))
@@ -8,7 +9,9 @@ def prim_algorithm(n, edges):
     
     visited = [False] * (n+1)
     min_heap = []
+
     heapq.heappush(min_heap, (0, 1, -1)) 
+    
     total_weight = 0
     mst_edges = []
     
@@ -19,7 +22,7 @@ def prim_algorithm(n, edges):
         visited[u] = True
         total_weight += weight
         if parent != -1:
-        
+          
             if parent < u:
                 mst_edges.append((parent, u))
             else:
@@ -28,8 +31,6 @@ def prim_algorithm(n, edges):
         for v, w in adj[u]:
             if not visited[v]:
                 heapq.heappush(min_heap, (w, v, u))
-    
-    
     if sum(visited[1:]) != n:
         return -1, []
     
@@ -55,9 +56,7 @@ def main():
         print(-1)
     else:
         print(total_weight)
-      
         mst_edges_sorted = sorted(mst_edges, key=lambda x: (x[0], x[1]))
-        
         print(' '.join(f"{u} {v}" for u, v in mst_edges_sorted))
 
 if __name__ == "__main__":
