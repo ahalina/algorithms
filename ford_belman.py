@@ -24,14 +24,13 @@ def solve_ford_bellman():
         if not updated:
             break
 
-    # Проверка на наличие отрицательных циклов, достижимых из start_node
     for u, v, w in edges:
         if distance[u] != float('inf') and distance[u] + w < distance[v]:
-            # Обнаружен отрицательный цикл, влияющий на кратчайший путь
+     
             print(-1)
             return
 
-    if distance[end_node] == float('inf'):
+    if distance[end_node] == float('inf') or distance[end_node]<0:
         print(-1)
         return
     else:
