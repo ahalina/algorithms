@@ -1,0 +1,26 @@
+import heapq
+
+def solve():
+    n = int(input())
+    tasks = []
+    for _ in range(n):
+        d, w = map(int, input().split())
+        tasks.append((d, w))
+    tasks.sort()
+    min_heap = []
+    total = 0
+    
+    for d, w in tasks:
+        if len(min_heap) < d:
+            heapq.heappush(min_heap, w)
+            total += w
+        else:
+            if min_heap and w > min_heap[0]:
+                smallest = heapq.heappop(min_heap)
+                total -= smallest
+                heapq.heappush(min_heap, w)
+                total += w
+    
+    print(total)
+
+solve()
